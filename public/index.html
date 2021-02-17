@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="theme-color" content="#000000">
-	<!--
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-	<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-	<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-	<!--
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link href="../src/bracket.css" rel="stylsheet"/>
+    <link href="../src/bracket.dark.css" rel="stylsheet"/>
+    <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -20,15 +23,581 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-	<title>React App</title>
-</head>
+    <title>React App</title>
+  </head>
 
-<body>
-	<noscript>
-		You need to enable JavaScript to run this app.
-	</noscript>
-	<div id="root"></div>
-	<!--
+  <body>
+    <div>
+      <div class="br-logo">
+        <a href="{% url 'web:home' %}">
+          <span></span>Market
+          <i>CI</i>
+          <span></span>
+        </a>
+      </div>
+      <div class="br-header">
+        <div class="br-header-left">
+          <div class="navicon-left hidden-md-down">
+            <a id="btnLeftMenu" href="">
+              <i class="icon ion-navicon-round"></i>
+            </a>
+          </div>
+          <div class="navicon-left hidden-lg-up">
+            <a id="btnLeftMenuMobile" href="">
+              <i class="icon ion-navicon-round"></i>
+            </a>
+          </div>
+          <div class="input-group hidden-xs-down wd-300 transition">
+            <div id="searchBar"></div>
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="br-header-right">
+          <ul
+            class="nav nav-gray-600 active-info tx-uppercase tx-12 tx-medium tx-spacing-2 flex-column flex-sm-row"
+            role="tablist"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                MarketCI
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                Macro
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                Charting
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                Screener
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                Blog
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/' %}is-active{% endif %}"
+                data-toggle="tab"
+                href="{% url 'web:home' %}"
+                role="tab"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+          <div class="bd-l bd-2 mg-r-10">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a
+                    class="button is-primary is-outlined"
+                    href="{% url 'account_signup' %}"
+                  >
+                    Sign up
+                  </a>
+                  <a class="button is-text" href="{% url 'account_login' %}">
+                    Sign in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="br-sideleft pos-fixed">
+      <label class="sidebar-label pd-x-10 mg-t-20">Snapshot</label>
+      <div id="test"></div>
+      <label class="sidebar-label pd-x-10 mg-t-20">Navigation</label>
+      <ul class="br-sideleft-menu">
+        <li class="br-menu-item">
+          <a href="{% url 'web:advanced-charting' %}" class="br-menu-link">
+            <i class="menu-item-icon icon ion-ios-home-outline tx-24"></i>
+            <span class="menu-item-label">Dashboard</span>
+          </a>
+        </li>
+        <li class="br-menu-item">
+          <a href="{% url 'web:advanced-charting' %}" class="br-menu-link">
+            <i class="menu-item-icon icon ion-ios-analytics tx-24"></i>
+            <span class="menu-item-label">Advanced Charting</span>
+          </a>
+        </li>
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link with-sub">
+            <i class="menu-item-icon icon ion-ios-cog-outline tx-24"></i>
+            <span class="menu-item-label">Valuations</span>
+          </a>
+          <ul class="br-menu-sub">
+            <li class="sub-item">
+              <a href="#" class="sub-link">
+                Discounted Cash Flow (DCF)
+              </a>
+            </li>
+            <li class="sub-item">
+              <a href="#" class="sub-link">
+                Dividend Discount Model (DDM)
+              </a>
+            </li>
+            <li class="sub-item">
+              <a href="#" class="sub-link">
+                Peer Comparison
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link">
+            <i class="menu-item-icon icon ion-ios-pulse tx-24"></i>
+            <span class="menu-item-label">Financials Analysis</span>
+          </a>
+        </li>
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link">
+            <i class="menu-item-icon icon ion-chatbubbles tx-24"></i>
+            <span class="menu-item-label">Social Sentiment</span>
+          </a>
+        </li>
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link">
+            <i class="menu-item-icon icon ion-ios-paper-outline tx-24"></i>
+            <span class="menu-item-label">News</span>
+          </a>
+        </li>
+        <li class="br-menu-item">
+          <a href="#" class="br-menu-link">
+            <i class="menu-item-icon icon ion-ios-briefcase-outline tx-24"></i>
+            <span class="menu-item-label">Company Description</span>
+          </a>
+        </li>
+      </ul>
+      <label class="sidebar-label pd-x-10 mg-t-20">Navigation</label>
+      <div id="peerGroup"></div>
+    </div>
+    <div class="br-mainpanel">
+    <section>
+        <div class="br-pagebody">
+          <div class="br-pagetitle mg-b-20">
+            <i class="icon icon ion-ios-home-outline"></i>
+            <div>
+              <h4 class=mg-l-10>DASHBOARD</h4>
+            </div>
+          </div>
+          
+              <div class="row row-sm mg-b-20">
+                <div class="col-sm-6 col-xl-3">
+                  <div class="bg-info rounded overflow-hidden">
+                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                      <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                      <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Short-Term Forecast</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">BULLISH / BEARISH</p>
+      
+                      </div>
+                    </div>
+                    <div id="ch1" class="ht-50 tr-y-1"></div>
+                  </div>
+                </div><!-- col-3 -->
+                <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+                  <div class="bg-purple rounded overflow-hidden">
+                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                      <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                      <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Intrinsic Value</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">OVER / UNDER by XXX</p>
+                      </div>
+                    </div>
+                    <div id="ch3" class="ht-50 tr-y-1"></div>
+                  </div>
+                </div><!-- col-3 -->
+                <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                  <div class="bg-teal rounded overflow-hidden">
+                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                      <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+                      <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Consumer Sentiment</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">Current: XX | 7 Day Avg: XX</p>
+                      </div>
+                    </div>
+                    <div id="ch2" class="ht-50 tr-y-1"></div>
+                  </div>
+                </div><!-- col-3 -->
+                <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                  <div class="bg-primary rounded overflow-hidden">
+                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                      <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+                      <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Financial Health</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">RADAR</p>
+                      </div>
+                    </div>
+                    <div id="ch4" class="ht-50 tr-y-1"></div>
+                  </div>
+                </div><!-- col-3 -->
+              </div>
+      
+      
+              
+              <div class="row row-sm">
+                <div class="col-lg-8">
+                  <div class="card ht-650">
+                      <div class="d-md-flex justify-content-between pd-25">
+                          <div>
+                              <h6 class="tx-13 tx-uppercase tx-white tx-spacing-1">How might it perform over the next month? </h6>
+                              <p>Last Updated Oct 14, 2017</p>
+                          </div>
+                          <div class="d-sm-flex">
+                              <div>
+                                  <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Last Year Change</p>
+                                  <h4 class="tx-lato tx-white tx-bold mg-b-0">23.32%</h4>
+                                  <span class="tx-12 tx-success tx-roboto">2.7% increased</span>
+                              </div>
+                              <div class="bd-sm-l bd-white-1-force pd-sm-l-20 mg-sm-l-20 mg-t-20 mg-sm-t-0">
+                                  <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">6 Months Change</p>
+                                  <h4 class="tx-lato tx-white tx-bold mg-b-0">38.20%</h4>
+                                  <span class="tx-12 tx-danger tx-roboto">4.65% decreased</span>
+                              </div>
+                              <div class="bd-sm-l bd-white-1-force pd-sm-l-20 mg-sm-l-20 mg-t-20 mg-sm-t-0">
+                              <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Last 3 Months</p>
+                              <h4 class="tx-lato tx-white tx-bold mg-b-0">12:30</h4>
+                              <span class="tx-12 tx-success tx-roboto">1.22% increased</span>
+                              </div>        
+                          </div>
+                      </div>
+                      <div id="test" />           
+                  </div>
+                </div> 
+              </div>
+              
+              <div class="col-lg-4 mg-t-10 mg-lg-t-0">
+                <div class="card bd-gray-400 overflow-hidden">
+                  <div class="pd-x-25 pd-t-25 pd-b-25">
+                    <h6 class="tx-13 tx-uppercase tx-white tx-semibold tx-spacing-1 mg-b-20">Short Term Sentiment</h6>
+                    <div id="SocialSentiment"></div>
+                  </div><!-- pd-x-25 -->
+      
+                </div
+              </div>
+            </div>    
+          </section>
+          <section>
+              <div class="mg-20">
+              <div class="br-pagetitle">
+                <i class="icon icon ion-ios-cog-outline"></i>
+                <div><h4 class=mg-l-10>VALUATIONS</h4></div>
+            </div></div>
+            <div class='br-pagebody'>
+                <div class="row row-sm">
+                    <div class="col-lg-7">
+                        <div class="card">
+                          
+        
+                        <table class="table table-striped">
+                        <tr>
+                          <th>Discounted Cash Flow</th>
+                          <th>Current Year</th>
+                          <th>Next Year</th>
+                          <th>Next 2 Years</th>
+                          <th>Next 3 Years</th>
+                          <th>Next 4 Years</th>
+                          <th>Next 5 Years</th>
+        
+                        </tr>
+                        <tr>
+                          <td>NOPAT</td>
+                          <td>xxx</td>
+                          <td>12997.82</td>
+                          <td>13554.97</td>
+                          <td>14781.34</td>
+                          <td>16118.66</td>
+                          <td>17576.97</td>
+                        </tr>
+                        <tr>
+                            <td>(+) Depreciation</td>
+                            <td>xxx</td>
+                            <td>69.39</td>
+                            <td>158.18</td>
+                            <td>89.98</td>
+                            <td>98.12</td>
+                            <td>107.00</td>
+                          </tr>
+                          <tr>
+                            <td>(-) Capex</td>
+                            <td>xxx</td>
+                            <td>1094.84</td>
+                            <td>17811.40</td>
+                            <td>19422.90</td>
+                            <td>21180.10</td>
+                            <td>23096.30</td>
+                          </tr> 
+                          <tr>
+                            <td>(-) Net Working Capital</td>
+                            <td>xxx</td>
+                            <td>1142.00</td>
+                            <td>348.32</td>
+                            <td>379.84</td>
+                            <td>414.20</td>
+                            <td>451.68</td>
+                          </tr>                
+                          <tr>
+                            <td>= Free Cash Flow</td>
+                            <td>xxx</td>
+                            <td>13020.06</td>
+                            <td>31176.24</td>
+                            <td>33914.35</td>
+                            <td>36982.69</td>
+                            <td>40328.65</td>
+                          </tr>
+                        </table>
+        
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            </section>
+
+            <section>
+                <div class="mg-20">
+                <div class="br-pagetitle">
+                  <i class="icon icon ion-ios-pulse"></i>
+                  <div><h4 class=mg-l-10>FINANCIAL ANALYSIS</h4></div>
+                  </div></div>
+                  <div class='br-pagebody'>
+                      <div class="row row-sm">
+                          <div class="col-lg-12">
+                              <div class="card">
+                              
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </section>
+                <section>
+                <div class="mg-20">
+                  <div class="br-pagetitle">
+                    <i class="icon icon ion-chatbubbles"></i>
+                    <div><h4 class=mg-l-10>SOCIAL SENTIMENT</h4></div>
+                </div></div>
+                <div class='br-pagebody'>
+                  <div class="row row-sm">
+                    <div class="col-lg-12">
+                        <div class="card">
+                        <div id="shortSocialSentiment"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </section>
+                 
+    <section>
+        <div class="mg-20">
+        <div class="br-pagetitle">
+            <i class="icon icon ion-ios-paper-outline"></i>
+            <div><h4 class="mg-l-10">COMPANY NEWS</h4></div>
+        </div></div>
+        
+        <div class='br-pagebody'>
+              <div class="row row-sm">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="row row-sm mg-20">
+    
+                      <div class="row no-gutters rounded mg-t-25 mg-b-25">
+                        <div class="d-flex">
+                        <div>
+                          <figure class="card-item-img rounded-top">
+                            <img class="img-fluid rounded-top" src="https://via.placeholder.com/175x125" alt="Image">
+                          </figure>
+                        </div>
+                          <div class="container">
+                          <h5 class="tx-normal tx-roboto tx-lg-16-force tx-xl-20-force lh-3 mg-b-15">
+                            <a href="" class="tx-white">17 Brilliant Short Novels You Can Read in a Sitting</a>
+                          </h5>    
+                            <p class="tx-15 tx-gray-600">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. Nascetur ridiculus mus. Donec quam felis, ultricies nec blah blah blah blah v v vblah  is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
+                            <div class="bg-transparent bd-t-0">
+                              <a href="https://www.google.com" target="_blank" class="d-block hover-white-8 tx-white">Read More...</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>    
+    
+                      <div class="row no-gutters rounded mg-t-25 mg-b-25">
+                        <div class="d-flex">
+                        <div>
+                          <figure class="card-item-img rounded-top">
+                            <img class="img-fluid rounded-top" src="https://via.placeholder.com/175x125" alt="Image">
+                          </figure>
+                        </div>
+                          <div class="container">
+                          <h5 class="tx-normal tx-roboto tx-lg-16-force tx-xl-20-force lh-3 mg-b-15">
+                            <a href="" class="tx-white">17 Brilliant Short Novels You Can Read in a Sitting</a>
+                          </h5>    
+                            <p class="tx-14 tx-gray-600">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. Nascetur ridiculus mus. Donec quam felis, ultricies nec...</p>
+                            <div class="bg-transparent bd-t-0">
+                              <a href="https://www.google.com" target="_blank" class="d-block hover-white-8 tx-white">Read More...</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+    
+                      <div class="row no-gutters rounded mg-t-25 mg-b-25">
+                        <div class="d-flex">
+                        <div>
+                          <figure class="card-item-img rounded-top">
+                            <img class="img-fluid rounded-top" src="https://via.placeholder.com/175x125" alt="Image">
+                          </figure>
+                        </div>
+                          <div class="container">
+                          <h5 class="tx-normal tx-roboto tx-lg-16-force tx-xl-20-force lh-3 mg-b-15">
+                            <a href="" class="tx-white">17 Brilliant Short Novels You Can Read in a Sitting</a>
+                          </h5>    
+                            <p class="tx-14 tx-gray-600">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. Nascetur ridiculus mus. Donec quam felis, ultricies nec...</p>
+                            <div class="bg-transparent bd-t-0">
+                              <a href="https://www.google.com" target="_blank" class="d-block hover-white-8 tx-white">Read More...</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div> 
+    
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        </section>
+    
+    
+        <section>
+        <div class="mg-20">
+          <div class="br-pagetitle">
+            <i class="icon icon ion-ios-briefcase-outline"></i>
+            <div><h4 class=mg-l-10 id="this"></h4></div>
+        </div></div>
+        <div class='br-pagebody'>
+          <div class="row row-sm">
+            <div class="card">
+    
+            <div class="rounded table-responsive">
+              <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    <h2>VISA Inc.</h2>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Visa Inc. operates as a payments technology company worldwide. 
+     The company facilitates commerce through the transfer of value and information among consumers,  
+     merchants, financial institutions, businesses, strategic partners, and government entities. 
+     It operates VisaNet, a processing network that enables authorization, clearing, and settlement 
+     of payment transactions. In addition, the company offers card products, as well as value-added services. 
+     It provides its services under the Visa, Visa Electron, Interlink, V PAY, and PLUS brands. 
+     Visa Inc. has a strategic partnership with NovoPayment to enable financial institutions and merchants to deploy 
+     Visa's digital solutions in Latin America and the Caribbean; and a strategic agreement with Intuit Inc. 
+     The company was founded in 1958 and is headquartered in San Francisco, California.</th>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          
+          <div class="bd bd-white-1 rounded table-responsive">     
+            <table class="table table-bordered">
+              <thead class="thead-colored thead-info">
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Position</th>
+                  <th>Salary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Tiger Nixon</td>
+                  <td>System Architect</td>
+                  <td>$320,800</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Garrett Winters</td>
+                  <td>Accountant</td>
+                  <td>$170,750</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Ashton Cox</td>
+                  <td>Junior Technical Author</td>
+                  <td>$86,000</td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td>Cedric Kelly</td>
+                  <td>Senior Javascript Developer</td>
+                  <td>$433,060</td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td>Airi Satou</td>
+                  <td>Accountant</td>
+                  <td>$162,700</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>  
+        </div>          
+      </div>
+    </div>
+    
+        </section>
+        <footer class="br-footer">
+          <div class="footer-left">
+            <div class="mg-b-2">
+                Copyright @2020 MarketCI Ltd.
+            </div>
+          </div>
+        </footer>
+        </div>
+    <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -38,6 +607,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-</body>
-
+  </body>
 </html>
